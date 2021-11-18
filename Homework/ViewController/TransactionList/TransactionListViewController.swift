@@ -38,6 +38,11 @@ class TransactionListViewController: UIViewController {
     return UIRefreshControl()
   }()
 
+  private lazy var insertNavitionItem: UIBarButtonItem = {
+    let item = UIBarButtonItem(barButtonSystemItem: .add, target: nil, action: nil)
+    return item
+  }()
+
   public init(viewModel: TransactionListViewModel = .init()) {
     self.viewModel = viewModel
     super.init(nibName: nil, bundle: nil)
@@ -60,6 +65,7 @@ class TransactionListViewController: UIViewController {
 
   private func setupUserInterface() {
     navigationItem.title = "Main"
+    navigationItem.rightBarButtonItem = insertNavitionItem
     view.addSubview(tableView)
     tableView.snp.makeConstraints { (make) in
       make.edges.equalToSuperview()
@@ -103,6 +109,14 @@ class TransactionListViewController: UIViewController {
 
         let detailController = TransactionDetailViewController(transactionInfo: detailInfo)
         self?.navigationController?.pushViewController(detailController, animated: true)
+      })
+      .disposed(by: disposeBag)
+
+    insertNavitionItem.rx.tap
+      .subscribe(onNext: { [weak self] _ in
+        guard let self = self else { return }
+        let insertController = InsertTransactionViewController()
+        self.navigationController?.pushViewController(insertController, animated: true)
       })
       .disposed(by: disposeBag)
   }

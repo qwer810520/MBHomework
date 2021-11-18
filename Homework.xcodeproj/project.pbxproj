@@ -36,6 +36,14 @@
 		3993DD0A2746A7F400ABEC92 /* TransationViewObjectMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3993DD092746A7F400ABEC92 /* TransationViewObjectMapper.swift */; };
 		3993DD0D2746AC3C00ABEC92 /* HWNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3993DD0C2746AC3C00ABEC92 /* HWNavigationController.swift */; };
 		3993DD0F2746ACC600ABEC92 /* UIViewController+Ex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3993DD0E2746ACC600ABEC92 /* UIViewController+Ex.swift */; };
+		3993DD132746B0D900ABEC92 /* InsertTransactionTitleOrTimeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3993DD122746B0D900ABEC92 /* InsertTransactionTitleOrTimeCell.swift */; };
+		3993DD152746B0F700ABEC92 /* InsertTransactionDetailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3993DD142746B0F700ABEC92 /* InsertTransactionDetailCell.swift */; };
+		3993DD182746B16300ABEC92 /* UICollectionReusableView+Ex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3993DD172746B16300ABEC92 /* UICollectionReusableView+Ex.swift */; };
+		3993DD1A2746B18100ABEC92 /* UICollectionView+Ex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3993DD192746B18100ABEC92 /* UICollectionView+Ex.swift */; };
+		3993DD1D2746B1B200ABEC92 /* InsertTransactionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3993DD1C2746B1B200ABEC92 /* InsertTransactionModel.swift */; };
+		3993DD1F2746B1C300ABEC92 /* InsertTransactionDetailModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3993DD1E2746B1C300ABEC92 /* InsertTransactionDetailModel.swift */; };
+		3993DD212746B20400ABEC92 /* InsertTimeToolBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3993DD202746B20400ABEC92 /* InsertTimeToolBar.swift */; };
+		3993DD232746B34100ABEC92 /* InsertTransactionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3993DD222746B34100ABEC92 /* InsertTransactionViewModel.swift */; };
 		39D376DA2746988000B0D001 /* UITableView+Ex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39D376D92746988000B0D001 /* UITableView+Ex.swift */; };
 		39D376DC2746989F00B0D001 /* UITableViewCell+Ex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39D376DB2746989F00B0D001 /* UITableViewCell+Ex.swift */; };
 		39D376DE274698FE00B0D001 /* TransactionListTotalCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39D376DD274698FE00B0D001 /* TransactionListTotalCell.swift */; };
@@ -90,6 +98,14 @@
 		3993DD092746A7F400ABEC92 /* TransationViewObjectMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransationViewObjectMapper.swift; sourceTree = "<group>"; };
 		3993DD0C2746AC3C00ABEC92 /* HWNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HWNavigationController.swift; sourceTree = "<group>"; };
 		3993DD0E2746ACC600ABEC92 /* UIViewController+Ex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Ex.swift"; sourceTree = "<group>"; };
+		3993DD122746B0D900ABEC92 /* InsertTransactionTitleOrTimeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsertTransactionTitleOrTimeCell.swift; sourceTree = "<group>"; };
+		3993DD142746B0F700ABEC92 /* InsertTransactionDetailCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsertTransactionDetailCell.swift; sourceTree = "<group>"; };
+		3993DD172746B16300ABEC92 /* UICollectionReusableView+Ex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionReusableView+Ex.swift"; sourceTree = "<group>"; };
+		3993DD192746B18100ABEC92 /* UICollectionView+Ex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionView+Ex.swift"; sourceTree = "<group>"; };
+		3993DD1C2746B1B200ABEC92 /* InsertTransactionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsertTransactionModel.swift; sourceTree = "<group>"; };
+		3993DD1E2746B1C300ABEC92 /* InsertTransactionDetailModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsertTransactionDetailModel.swift; sourceTree = "<group>"; };
+		3993DD202746B20400ABEC92 /* InsertTimeToolBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsertTimeToolBar.swift; sourceTree = "<group>"; };
+		3993DD222746B34100ABEC92 /* InsertTransactionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsertTransactionViewModel.swift; sourceTree = "<group>"; };
 		39D376D92746988000B0D001 /* UITableView+Ex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+Ex.swift"; sourceTree = "<group>"; };
 		39D376DB2746989F00B0D001 /* UITableViewCell+Ex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableViewCell+Ex.swift"; sourceTree = "<group>"; };
 		39D376DD274698FE00B0D001 /* TransactionListTotalCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionListTotalCell.swift; sourceTree = "<group>"; };
@@ -249,7 +265,9 @@
 		0DE77A852644F6EC0068A3CE /* InsertTransaction */ = {
 			isa = PBXGroup;
 			children = (
-				0DE77A7D2644F6E70068A3CE /* InsertTransactionViewController.swift */,
+				3993DD242746B34700ABEC92 /* ViewModel */,
+				3993DD1B2746B19100ABEC92 /* Model */,
+				3993DD102746AFD900ABEC92 /* View */,
 			);
 			path = InsertTransaction;
 			sourceTree = "<group>";
@@ -293,6 +311,51 @@
 			path = Navigation;
 			sourceTree = "<group>";
 		};
+		3993DD102746AFD900ABEC92 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				3993DD112746B06400ABEC92 /* Cell */,
+				0DE77A7D2644F6E70068A3CE /* InsertTransactionViewController.swift */,
+				3993DD202746B20400ABEC92 /* InsertTimeToolBar.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		3993DD112746B06400ABEC92 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				3993DD122746B0D900ABEC92 /* InsertTransactionTitleOrTimeCell.swift */,
+				3993DD142746B0F700ABEC92 /* InsertTransactionDetailCell.swift */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
+		3993DD162746B14A00ABEC92 /* UICollectionView */ = {
+			isa = PBXGroup;
+			children = (
+				3993DD172746B16300ABEC92 /* UICollectionReusableView+Ex.swift */,
+				3993DD192746B18100ABEC92 /* UICollectionView+Ex.swift */,
+			);
+			path = UICollectionView;
+			sourceTree = "<group>";
+		};
+		3993DD1B2746B19100ABEC92 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				3993DD1C2746B1B200ABEC92 /* InsertTransactionModel.swift */,
+				3993DD1E2746B1C300ABEC92 /* InsertTransactionDetailModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		3993DD242746B34700ABEC92 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				3993DD222746B34100ABEC92 /* InsertTransactionViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
 		39D376D72746985700B0D001 /* General */ = {
 			isa = PBXGroup;
 			children = (
@@ -307,6 +370,7 @@
 		39D376D82746985F00B0D001 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				3993DD162746B14A00ABEC92 /* UICollectionView */,
 				39D376DF2746991E00B0D001 /* UITableView */,
 				39D376E02746993400B0D001 /* UIView+Ex.swift */,
 				3993DD0E2746ACC600ABEC92 /* UIViewController+Ex.swift */,
@@ -499,14 +563,20 @@
 				3993DD0F2746ACC600ABEC92 /* UIViewController+Ex.swift in Sources */,
 				0DE77A932644F8750068A3CE /* TransactionDetailTableViewCell.swift in Sources */,
 				0D86F3342643A80F00C0F731 /* APIManager.swift in Sources */,
+				3993DD232746B34100ABEC92 /* InsertTransactionViewModel.swift in Sources */,
 				39D376E727469CAA00B0D001 /* FormatHelper.swift in Sources */,
+				3993DD1A2746B18100ABEC92 /* UICollectionView+Ex.swift in Sources */,
+				3993DD1D2746B1B200ABEC92 /* InsertTransactionModel.swift in Sources */,
+				3993DD132746B0D900ABEC92 /* InsertTransactionTitleOrTimeCell.swift in Sources */,
 				0D6E57ED2643C01500E3E72C /* Transaction.swift in Sources */,
 				3993DD0D2746AC3C00ABEC92 /* HWNavigationController.swift in Sources */,
 				0D6E57FA2643CFD900E3E72C /* TransactionListDetailTableViewCell.swift in Sources */,
 				3993DD0A2746A7F400ABEC92 /* TransationViewObjectMapper.swift in Sources */,
+				3993DD182746B16300ABEC92 /* UICollectionReusableView+Ex.swift in Sources */,
 				0DE77A8B2644F7140068A3CE /* TransactionDetailViewController.swift in Sources */,
 				39D376E12746993400B0D001 /* UIView+Ex.swift in Sources */,
 				39D376DC2746989F00B0D001 /* UITableViewCell+Ex.swift in Sources */,
+				3993DD1F2746B1C300ABEC92 /* InsertTransactionDetailModel.swift in Sources */,
 				39D376E427469AFD00B0D001 /* ViewModelType.swift in Sources */,
 				39D376DE274698FE00B0D001 /* TransactionListTotalCell.swift in Sources */,
 				0D6E57F52643CF9300E3E72C /* TransactionListSectionView.swift in Sources */,
@@ -516,7 +586,9 @@
 				0D86F2EB2643A18700C0F731 /* AppDelegate.swift in Sources */,
 				0D6E57CD2643AD5200E3E72C /* TransactionListViewModel.swift in Sources */,
 				0D86F2ED2643A18700C0F731 /* SceneDelegate.swift in Sources */,
+				3993DD152746B0F700ABEC92 /* InsertTransactionDetailCell.swift in Sources */,
 				0DE77A7E2644F6E70068A3CE /* InsertTransactionViewController.swift in Sources */,
+				3993DD212746B20400ABEC92 /* InsertTimeToolBar.swift in Sources */,
 				0DE77A982644FA010068A3CE /* DBManager.swift in Sources */,
 				0DE77AA32644FC930068A3CE /* TransactionListViewObject.swift in Sources */,
 			);
