@@ -34,6 +34,10 @@
 		0DE77A982644FA010068A3CE /* DBManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DE77A972644FA010068A3CE /* DBManager.swift */; };
 		0DE77A9E2644FB6A0068A3CE /* FMDB in Frameworks */ = {isa = PBXBuildFile; productRef = 0DE77A9D2644FB6A0068A3CE /* FMDB */; };
 		0DE77AA32644FC930068A3CE /* TransactionListViewObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DE77AA22644FC930068A3CE /* TransactionListViewObject.swift */; };
+		39D376DA2746988000B0D001 /* UITableView+Ex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39D376D92746988000B0D001 /* UITableView+Ex.swift */; };
+		39D376DC2746989F00B0D001 /* UITableViewCell+Ex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39D376DB2746989F00B0D001 /* UITableViewCell+Ex.swift */; };
+		39D376DE274698FE00B0D001 /* TransactionListTotalCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39D376DD274698FE00B0D001 /* TransactionListTotalCell.swift */; };
+		39D376E12746993400B0D001 /* UIView+Ex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39D376E02746993400B0D001 /* UIView+Ex.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -79,6 +83,10 @@
 		0DE77A922644F8750068A3CE /* TransactionDetailTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionDetailTableViewCell.swift; sourceTree = "<group>"; };
 		0DE77A972644FA010068A3CE /* DBManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DBManager.swift; sourceTree = "<group>"; };
 		0DE77AA22644FC930068A3CE /* TransactionListViewObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionListViewObject.swift; sourceTree = "<group>"; };
+		39D376D92746988000B0D001 /* UITableView+Ex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+Ex.swift"; sourceTree = "<group>"; };
+		39D376DB2746989F00B0D001 /* UITableViewCell+Ex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableViewCell+Ex.swift"; sourceTree = "<group>"; };
+		39D376DD274698FE00B0D001 /* TransactionListTotalCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionListTotalCell.swift; sourceTree = "<group>"; };
+		39D376E02746993400B0D001 /* UIView+Ex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Ex.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -147,6 +155,7 @@
 			children = (
 				0D86F2EA2643A18700C0F731 /* AppDelegate.swift */,
 				0D86F2EC2643A18700C0F731 /* SceneDelegate.swift */,
+				39D376D72746985700B0D001 /* General */,
 				0D86F3322643A69F00C0F731 /* Manager */,
 				0D86F3312643A68400C0F731 /* Inject */,
 				0D86F32A2643A62000C0F731 /* Model */,
@@ -184,6 +193,7 @@
 				0D6E57F42643CF9300E3E72C /* TransactionListSectionView.swift */,
 				0D6E57F92643CFD900E3E72C /* TransactionListDetailTableViewCell.swift */,
 				0DE77AA22644FC930068A3CE /* TransactionListViewObject.swift */,
+				39D376DD274698FE00B0D001 /* TransactionListTotalCell.swift */,
 			);
 			path = TransactionList;
 			sourceTree = "<group>";
@@ -263,6 +273,32 @@
 			children = (
 			);
 			path = Database;
+			sourceTree = "<group>";
+		};
+		39D376D72746985700B0D001 /* General */ = {
+			isa = PBXGroup;
+			children = (
+				39D376D82746985F00B0D001 /* Extensions */,
+			);
+			path = General;
+			sourceTree = "<group>";
+		};
+		39D376D82746985F00B0D001 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				39D376E02746993400B0D001 /* UIView+Ex.swift */,
+				39D376DF2746991E00B0D001 /* UITableView */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		39D376DF2746991E00B0D001 /* UITableView */ = {
+			isa = PBXGroup;
+			children = (
+				39D376D92746988000B0D001 /* UITableView+Ex.swift */,
+				39D376DB2746989F00B0D001 /* UITableViewCell+Ex.swift */,
+			);
+			path = UITableView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -418,8 +454,12 @@
 				0D6E57ED2643C01500E3E72C /* Transaction.swift in Sources */,
 				0D6E57FA2643CFD900E3E72C /* TransactionListDetailTableViewCell.swift in Sources */,
 				0DE77A8B2644F7140068A3CE /* TransactionDetailViewController.swift in Sources */,
+				39D376E12746993400B0D001 /* UIView+Ex.swift in Sources */,
+				39D376DC2746989F00B0D001 /* UITableViewCell+Ex.swift in Sources */,
+				39D376DE274698FE00B0D001 /* TransactionListTotalCell.swift in Sources */,
 				0D6E57F52643CF9300E3E72C /* TransactionListSectionView.swift in Sources */,
 				0D86F2EF2643A18700C0F731 /* TransactionListViewController.swift in Sources */,
+				39D376DA2746988000B0D001 /* UITableView+Ex.swift in Sources */,
 				0D86F33E2643A91C00C0F731 /* Resolver.swift in Sources */,
 				0D86F2EB2643A18700C0F731 /* AppDelegate.swift in Sources */,
 				0D6E57CD2643AD5200E3E72C /* TransactionListViewModel.swift in Sources */,
