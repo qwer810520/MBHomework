@@ -7,17 +7,29 @@
 
 import UIKit
 import SnapKit
+import RxCocoa
+import RxSwift
 
 class TransactionListViewController: UIViewController {
 
-  private var viewObject: TransactionListViewObject?
+  private let disposeBag = DisposeBag()
+
+  private var viewObject: TransactionListViewObject? = nil {
+    didSet {
+      DispatchQueue.main.async { [weak self] in
+        self?.tableView.reloadData()
+      }
+    }
+  }
   private let viewModel: TransactionListViewModel
+  private let refreshTrigger = PublishSubject<Void>()
 
   private lazy var tableView: UITableView = {
     let tableView = UITableView(frame: CGRect.zero, style: UITableView.Style.plain)
     tableView.delegate = self
     tableView.dataSource = self
     tableView.reguster(with: [TransactionListDetailTableViewCell.self, TransactionListTotalCell.self])
+    
     return tableView
   }()
 
@@ -26,6 +38,8 @@ class TransactionListViewController: UIViewController {
     super.init(nibName: nil, bundle: nil)
   }
 
+  // MARK: - Initialization
+
   required init?(coder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
   }
@@ -33,13 +47,36 @@ class TransactionListViewController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     initView()
+    bindViewModel()
+    refreshTrigger.onNext(())
   }
+
+  // MARK: - Private Methods
 
   private func initView() {
     view.addSubview(tableView)
     tableView.snp.makeConstraints { (make) in
       make.edges.equalToSuperview()
     }
+  }
+
+  private func bindViewModel() {
+    let input = TransactionListViewModel.Input(fetchContentTrigger: refreshTrigger)
+    let output = viewModel.transform(input: input)
+
+    output.viewObject
+      .subscribe(onNext: { [weak self] result in
+        self?.viewObject = result
+      })
+      .disposed(by: disposeBag)
+
+    tableView.rx.itemSelected
+      .asObservable()
+      .subscribe(onNext: { [weak self] indexPath in
+        self?.tableView.deselectRow(at: indexPath, animated: true)
+        self?.tableView.reloadRows(at: [indexPath], with: .automatic)
+      })
+      .disposed(by: disposeBag)
   }
 }
 
