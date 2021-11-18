@@ -29,8 +29,12 @@ class TransactionListViewController: UIViewController {
     tableView.delegate = self
     tableView.dataSource = self
     tableView.reguster(with: [TransactionListDetailTableViewCell.self, TransactionListTotalCell.self])
-    
+    tableView.refreshControl = refreshControl
     return tableView
+  }()
+
+  private lazy var refreshControl: UIRefreshControl = {
+    return UIRefreshControl()
   }()
 
   public init(viewModel: TransactionListViewModel = .init()) {
@@ -68,6 +72,23 @@ class TransactionListViewController: UIViewController {
       .subscribe(onNext: { [weak self] result in
         self?.viewObject = result
       })
+      .disposed(by: disposeBag)
+
+    output.isLoading
+      .subscribe(onNext: { [weak self] status in
+        DispatchQueue.main.async {
+          guard let self = self, let refreshControl = self.tableView.refreshControl else { return }
+          switch status {
+            case false where refreshControl.isRefreshing:
+              self.tableView.refreshControl?.endRefreshing()
+            default: break
+          }
+        }
+      })
+      .disposed(by: disposeBag)
+
+    refreshControl.rx.controlEvent(.valueChanged)
+      .bind(to: refreshTrigger)
       .disposed(by: disposeBag)
 
     tableView.rx.itemSelected
