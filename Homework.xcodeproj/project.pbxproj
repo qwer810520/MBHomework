@@ -34,6 +34,8 @@
 		0DE77A9E2644FB6A0068A3CE /* FMDB in Frameworks */ = {isa = PBXBuildFile; productRef = 0DE77A9D2644FB6A0068A3CE /* FMDB */; };
 		0DE77AA32644FC930068A3CE /* TransactionListViewObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DE77AA22644FC930068A3CE /* TransactionListViewObject.swift */; };
 		3993DD0A2746A7F400ABEC92 /* TransationViewObjectMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3993DD092746A7F400ABEC92 /* TransationViewObjectMapper.swift */; };
+		3993DD0D2746AC3C00ABEC92 /* HWNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3993DD0C2746AC3C00ABEC92 /* HWNavigationController.swift */; };
+		3993DD0F2746ACC600ABEC92 /* UIViewController+Ex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3993DD0E2746ACC600ABEC92 /* UIViewController+Ex.swift */; };
 		39D376DA2746988000B0D001 /* UITableView+Ex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39D376D92746988000B0D001 /* UITableView+Ex.swift */; };
 		39D376DC2746989F00B0D001 /* UITableViewCell+Ex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39D376DB2746989F00B0D001 /* UITableViewCell+Ex.swift */; };
 		39D376DE274698FE00B0D001 /* TransactionListTotalCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39D376DD274698FE00B0D001 /* TransactionListTotalCell.swift */; };
@@ -86,6 +88,8 @@
 		0DE77A972644FA010068A3CE /* DBManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DBManager.swift; sourceTree = "<group>"; };
 		0DE77AA22644FC930068A3CE /* TransactionListViewObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionListViewObject.swift; sourceTree = "<group>"; };
 		3993DD092746A7F400ABEC92 /* TransationViewObjectMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransationViewObjectMapper.swift; sourceTree = "<group>"; };
+		3993DD0C2746AC3C00ABEC92 /* HWNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HWNavigationController.swift; sourceTree = "<group>"; };
+		3993DD0E2746ACC600ABEC92 /* UIViewController+Ex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Ex.swift"; sourceTree = "<group>"; };
 		39D376D92746988000B0D001 /* UITableView+Ex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+Ex.swift"; sourceTree = "<group>"; };
 		39D376DB2746989F00B0D001 /* UITableViewCell+Ex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableViewCell+Ex.swift"; sourceTree = "<group>"; };
 		39D376DD274698FE00B0D001 /* TransactionListTotalCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionListTotalCell.swift; sourceTree = "<group>"; };
@@ -281,9 +285,18 @@
 			path = Database;
 			sourceTree = "<group>";
 		};
+		3993DD0B2746AC2F00ABEC92 /* Navigation */ = {
+			isa = PBXGroup;
+			children = (
+				3993DD0C2746AC3C00ABEC92 /* HWNavigationController.swift */,
+			);
+			path = Navigation;
+			sourceTree = "<group>";
+		};
 		39D376D72746985700B0D001 /* General */ = {
 			isa = PBXGroup;
 			children = (
+				3993DD0B2746AC2F00ABEC92 /* Navigation */,
 				39D376E527469C9D00B0D001 /* Helper */,
 				39D376E227469AB600B0D001 /* Protocols */,
 				39D376D82746985F00B0D001 /* Extensions */,
@@ -294,8 +307,9 @@
 		39D376D82746985F00B0D001 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				39D376E02746993400B0D001 /* UIView+Ex.swift */,
 				39D376DF2746991E00B0D001 /* UITableView */,
+				39D376E02746993400B0D001 /* UIView+Ex.swift */,
+				3993DD0E2746ACC600ABEC92 /* UIViewController+Ex.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -482,10 +496,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				0D86F3392643A90800C0F731 /* Inject.swift in Sources */,
+				3993DD0F2746ACC600ABEC92 /* UIViewController+Ex.swift in Sources */,
 				0DE77A932644F8750068A3CE /* TransactionDetailTableViewCell.swift in Sources */,
 				0D86F3342643A80F00C0F731 /* APIManager.swift in Sources */,
 				39D376E727469CAA00B0D001 /* FormatHelper.swift in Sources */,
 				0D6E57ED2643C01500E3E72C /* Transaction.swift in Sources */,
+				3993DD0D2746AC3C00ABEC92 /* HWNavigationController.swift in Sources */,
 				0D6E57FA2643CFD900E3E72C /* TransactionListDetailTableViewCell.swift in Sources */,
 				3993DD0A2746A7F400ABEC92 /* TransationViewObjectMapper.swift in Sources */,
 				0DE77A8B2644F7140068A3CE /* TransactionDetailViewController.swift in Sources */,

@@ -50,14 +50,15 @@ class TransactionListViewController: UIViewController {
 
   override func viewDidLoad() {
     super.viewDidLoad()
-    initView()
+    setupUserInterface()
     bindViewModel()
     refreshTrigger.onNext(())
   }
 
   // MARK: - Private Methods
 
-  private func initView() {
+  private func setupUserInterface() {
+    navigationItem.title = "Main"
     view.addSubview(tableView)
     tableView.snp.makeConstraints { (make) in
       make.edges.equalToSuperview()
@@ -96,6 +97,11 @@ class TransactionListViewController: UIViewController {
       .subscribe(onNext: { [weak self] indexPath in
         self?.tableView.deselectRow(at: indexPath, animated: true)
         self?.tableView.reloadRows(at: [indexPath], with: .automatic)
+
+        guard indexPath.section > 0, let detailInfo = self?.viewObject?.sections[indexPath.section - 1] else { return }
+
+        let detailController = TransactionDetailViewController(transactionInfo: detailInfo)
+        self?.navigationController?.pushViewController(detailController, animated: true)
       })
       .disposed(by: disposeBag)
   }
