@@ -6,15 +6,13 @@
 //
 
 import UIKit
-
-import UIKit
 import SnapKit
 import RxSwift
 import RxCocoa
 
 class InsertTransactionViewController: UIViewController {
 
-  #warning("DOTO: Insert Transaction")
+//  #warning("DOTO: Insert Transaction")
 
   lazy private var collectionView: UICollectionView = {
     let view = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
@@ -50,6 +48,7 @@ class InsertTransactionViewController: UIViewController {
   private var insertTime = BehaviorRelay<Int>(value: 0)
   private var insertDescription = BehaviorRelay<String>(value: "")
   private var insertDetails = BehaviorRelay<[InsertTransactionDetailModel]>(value: [])
+  private(set) var newViewObject = BehaviorRelay<TransactionListViewObject>(value: TransactionListViewObject(dataList: []))
 
   // MARK: - UIViewController
 
@@ -152,7 +151,8 @@ class InsertTransactionViewController: UIViewController {
     output.responseResult
       .skip(1)
       .subscribe(onNext: { [weak self] response in
-        print("response: \(response)")
+        self?.newViewObject.accept(response)
+        self?.navigationController?.popViewController(animated: true)
       })
       .disposed(by: disposeBag)
   }

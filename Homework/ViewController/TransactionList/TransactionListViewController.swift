@@ -116,6 +116,10 @@ class TransactionListViewController: UIViewController {
       .subscribe(onNext: { [weak self] _ in
         guard let self = self else { return }
         let insertController = InsertTransactionViewController()
+        insertController.newViewObject.subscribe(onNext: { viewObject in
+          self.viewObject = nil
+          self.viewModel.localViewObject.accept(viewObject)
+        }).disposed(by: self.disposeBag)
         self.navigationController?.pushViewController(insertController, animated: true)
       })
       .disposed(by: disposeBag)
