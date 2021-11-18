@@ -37,8 +37,9 @@ class InsertTransactionViewController: UIViewController {
     let item = UIBarButtonItem.init(title: "Insert", style: .plain, target: nil, action: nil)
     return item
   }()
-  
+
   private let disposeBag = DisposeBag()
+  private let viewModel: InsertTransactionViewModel
   private var currentEditCell: UICollectionViewCell?
   private var localInsertDetails = [InsertTransactionDetailModel]() {
     didSet {
@@ -52,7 +53,8 @@ class InsertTransactionViewController: UIViewController {
 
   // MARK: - UIViewController
 
-  init() {
+  init(viewModel: InsertTransactionViewModel = .init()) {
+    self.viewModel = viewModel
     super.init(nibName: nil, bundle: nil)
   }
 
@@ -127,6 +129,30 @@ class InsertTransactionViewController: UIViewController {
       .subscribe(onNext: { [weak self] _ in
         guard self?.collectionView.frame.origin.y != 0 else { return }
         self?.collectionView.frame.origin.y = 0
+      })
+      .disposed(by: disposeBag)
+
+    let insertTrigger = PublishRelay<Void>()
+
+    insertBarItem.rx.tap
+      .subscribe(onNext: { [weak self] _ in
+        guard let self = self, !self.insertTitle.value.isEmpty, self.insertTime.value != 0, !self.insertDescription.value.isEmpty else { return }
+
+        if !self.insertDetails.value.isEmpty, self.insertDetails.value.allSatisfy({ $0.isEmpty }) {
+          return
+        }
+        insertTrigger.accept(())
+      })
+      .disposed(by: disposeBag)
+
+    let input = InsertTransactionViewModel.Input(title: insertTitle.asObservable(), time: insertTime.asObservable(), description: insertDescription.asObservable(), details: insertDetails.asObservable(), insertTrigger: insertTrigger)
+
+    let output = viewModel.transform(input: input)
+
+    output.responseResult
+      .skip(1)
+      .subscribe(onNext: { [weak self] response in
+        print("response: \(response)")
       })
       .disposed(by: disposeBag)
   }

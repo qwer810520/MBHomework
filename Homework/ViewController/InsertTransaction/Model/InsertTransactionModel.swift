@@ -24,3 +24,16 @@ struct InsertTransactionModel {
     self.details = details
   }
 }
+
+  // MARK: - HTTPParametersType
+
+extension InsertTransactionModel: HTTPParametersType {
+  var jsonParameters: [String : Any]? {
+    [
+      "title": title,
+      "time": time,
+      "description": description,
+      "details": details.map { $0.jsonParameters }
+    ]
+  }
+}

@@ -22,6 +22,12 @@ class APIManager {
     }
   }
 
+  func postNewTransactionsInfo<T: HTTPParametersType>(with info: T) -> Single<[Transaction]> {
+    return post(with: info).flatMap { data -> Single<[Transaction]> in
+      return APIManager.handleDecode([Transaction].self, from: data)
+    }
+  }
+
   func deleteTransactions(with id: Int) -> Single<[Transaction]> {
     return delete(with: id).flatMap { data -> Single<[Transaction]> in
       return APIManager.handleDecode([Transaction].self, from: data)
@@ -58,6 +64,24 @@ class APIManager {
           case .success:
             if let jsonData = response.data , let JSONString = String(data: jsonData, encoding: String.Encoding.utf8) {
               print("JSONString = " + JSONString)
+            }
+            singleEvent(.success(response.data))
+          case .failure(let error):
+            singleEvent(.failure(error))
+        }
+      }
+      return Disposables.create()
+    }
+  }
+
+  private func post<T: HTTPParametersType>(with info: T) -> Single<Data?> {
+    return Single<Data?>.create { singleEvent -> Disposable in
+      let url = APIManager.host + APIManager.transaction
+      AF.request(url, method: .post, parameters: info.jsonParameters, encoding: JSONEncoding.default).responseJSON { (response) in
+        switch response.result {
+          case .success:
+            if let jsonData = response.data , let JSONString = String(data: jsonData, encoding: String.Encoding.utf8) {
+              print("Post response JSONString = " + JSONString)
             }
             singleEvent(.success(response.data))
           case .failure(let error):

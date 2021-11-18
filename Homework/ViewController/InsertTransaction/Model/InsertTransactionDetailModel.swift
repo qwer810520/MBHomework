@@ -16,3 +16,15 @@ struct InsertTransactionDetailModel: Encodable {
     return name.isEmpty || quantity == 0 || price == 0
   }
 }
+
+  // MARK: - HTTPParametersType
+
+extension InsertTransactionDetailModel: HTTPParametersType {
+  var jsonParameters: [String : Any]? {
+    [
+      "name": name,
+      "quantity": quantity,
+      "price": price
+    ]
+  }
+}
