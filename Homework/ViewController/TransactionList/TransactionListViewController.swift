@@ -124,7 +124,7 @@ extension TransactionListViewController: UITableViewDelegate {
   func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
     //    #warning("DOTO: TransactionListSectionView")
     guard section > 0, let model = viewObject?.sections[section - 1] else { return nil }
-    let view = TransactionListSectionView(frame: .init(origin: .zero, size: .init(width: tableView.frame.width, height: 44)), transactionListItemViewObject: model)
+    let view = TransactionListSectionView(frame: .init(origin: .zero, size: .init(width: tableView.frame.width, height: 44)), transactionListItemViewObject: model, delegate: self)
     return view
   }
 }
@@ -164,5 +164,13 @@ extension TransactionListViewController: UITableViewDataSource {
         }
         return .init()
     }
+  }
+}
+
+  // MARK: - TransactionListFooterDelegate
+
+extension TransactionListViewController: TransactionListSectionDelegate {
+  func deleteButtonDidPressed(with id: Int) {
+    print("id: \(id)")
   }
 }
