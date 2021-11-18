@@ -23,6 +23,7 @@ class TransactionListViewController: UIViewController {
   }
   private let viewModel: TransactionListViewModel
   private let refreshTrigger = PublishSubject<Void>()
+  private let deleteTransactionTrigger = PublishSubject<Int>()
 
   private lazy var tableView: UITableView = {
     let tableView = UITableView(frame: CGRect.zero, style: UITableView.Style.plain)
@@ -66,7 +67,7 @@ class TransactionListViewController: UIViewController {
   }
 
   private func bindViewModel() {
-    let input = TransactionListViewModel.Input(fetchContentTrigger: refreshTrigger)
+    let input = TransactionListViewModel.Input(fetchContentTrigger: refreshTrigger, deleteTransactionTrigger: deleteTransactionTrigger)
     let output = viewModel.transform(input: input)
 
     output.viewObject
@@ -171,6 +172,6 @@ extension TransactionListViewController: UITableViewDataSource {
 
 extension TransactionListViewController: TransactionListSectionDelegate {
   func deleteButtonDidPressed(with id: Int) {
-    print("id: \(id)")
+    deleteTransactionTrigger.onNext(id)
   }
 }

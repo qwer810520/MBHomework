@@ -24,6 +24,12 @@ class TransactionListViewModel {
       return TransationViewObjectMapper.viewObject(with: transactions)
     }.observe(on: MainScheduler.instance)
   }
+
+  func deleteTransactionInfo(with id: Int) -> Single<TransactionListViewObject> {
+    return apiManager.deleteTransactions(with: id)
+      .map { return TransationViewObjectMapper.viewObject(with: $0) }
+      .observe(on: MainScheduler.instance)
+  }
 }
 
 // MARK: - ViewModelType
@@ -31,6 +37,7 @@ class TransactionListViewModel {
 extension TransactionListViewModel: ViewModelType {
   struct Input {
     let fetchContentTrigger: PublishSubject<Void>
+    let deleteTransactionTrigger: PublishSubject<Int>
   }
 
   struct Output {
@@ -52,6 +59,12 @@ extension TransactionListViewModel: ViewModelType {
       }
     })
     .disposed(by: disposeBag)
+
+    input.deleteTransactionTrigger.flatMapLatest { id -> Observable<TransactionListViewObject> in
+      return self.deleteTransactionInfo(with: id).asObservable()
+    }.subscribe(onNext: {
+      self.localViewObject.accept($0)
+    }).disposed(by: disposeBag)
 
     return Output(viewObject: localViewObject, isLoading: isLoading)
   }
