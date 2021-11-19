@@ -103,7 +103,6 @@ class TransactionListViewController: UIViewController {
       .asObservable()
       .subscribe(onNext: { [weak self] indexPath in
         self?.tableView.deselectRow(at: indexPath, animated: true)
-        self?.tableView.reloadRows(at: [indexPath], with: .automatic)
 
         guard indexPath.section > 0, let detailInfo = self?.viewObject?.sections[indexPath.section - 1] else { return }
 
@@ -117,7 +116,6 @@ class TransactionListViewController: UIViewController {
         guard let self = self else { return }
         let insertController = InsertTransactionViewController()
         insertController.newViewObject.subscribe(onNext: { viewObject in
-          self.viewObject = nil
           self.viewModel.localViewObject.accept(viewObject)
         }).disposed(by: self.disposeBag)
         self.navigationController?.pushViewController(insertController, animated: true)
@@ -181,7 +179,7 @@ extension TransactionListViewController: UITableViewDataSource {
         if let object = viewObject?.sections[indexPath.section - 1].cells[indexPath.row] {
           cell.updateView(object)
         }
-        return .init()
+       return cell
     }
   }
 }
