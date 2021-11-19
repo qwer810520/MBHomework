@@ -66,6 +66,13 @@ extension TransactionListViewModel: ViewModelType {
       self.localViewObject.accept($0)
     }).disposed(by: disposeBag)
 
+    localViewObject
+      .skip(1)
+      .subscribe(onNext: { [weak self] viewObject in
+        self?.dbManager.insertTransactions(with: viewObject.sections)
+      })
+      .disposed(by: disposeBag)
+
     return Output(viewObject: localViewObject, isLoading: isLoading)
   }
 }

@@ -85,6 +85,54 @@ class DBManager {
   }
 }
 
+  // MARK: - Insert Data
+
+extension DBManager {
+  func insertTransactions(with datas: [TransactionListSectionViewObject]) {
+    deleteAllTransactions()
+
+    guard let queue = queue() else { return }
+    queue.inDatabase { database in
+      defer { database.close() }
+
+      let sql = "INSERT OR REPLACE INTO T_TransactionInfo(transactionID, title, time, description) VALUES (?,?,?,?)"
+
+      let detailSQL = "INSERT OR REPLACE INTO T_TransactionDetail(transactionID, name, quantity, price) VALUES (?,?,?,?)"
+
+      datas.forEach { info in
+        let infoID = info.transactionData.id
+        guard database.executeUpdate(sql, withArgumentsIn: [infoID, info.transactionData.title, info.transactionData.time, info.transactionData.description]) else { return }
+
+        info.cells.forEach { detailInfo in
+          guard database.executeUpdate(detailSQL, withArgumentsIn: [infoID, detailInfo.detailData.name, detailInfo.detailData.quantity, detailInfo.detailData.price]) else { return }
+        }
+      }
+    }
+    print(#function, "Finish")
+  }
+}
+
+  // MARK: - Delete Data
+
+extension DBManager {
+  func deleteAllTransactions() {
+    guard let queue = queue() else { return }
+    queue.inDatabase { database in
+      defer { database.close() }
+
+      var sql = "DELETE FROM T_TransactionInfo"
+      guard database.executeUpdate(sql, withArgumentsIn: []) else { return }
+
+      sql = "DELETE FROM T_TransactionDetail"
+      guard database.executeUpdate(sql, withArgumentsIn: []) else { return }
+
+      print(#function, "Finish")
+
+    }
+  }
+}
+
+
 private extension String {
   func stringByAppendingPathComponent(path: String) -> String {
     let nsString = self as NSString
