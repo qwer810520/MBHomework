@@ -272,7 +272,6 @@
 			isa = PBXGroup;
 			children = (
 				3993DD242746B34700ABEC92 /* ViewModel */,
-				3993DD1B2746B19100ABEC92 /* Model */,
 				3993DD102746AFD900ABEC92 /* View */,
 			);
 			path = InsertTransaction;
@@ -290,6 +289,8 @@
 		0DE77AA72644FDBD0068A3CE /* Request */ = {
 			isa = PBXGroup;
 			children = (
+				3993DD1C2746B1B200ABEC92 /* InsertTransactionModel.swift */,
+				3993DD1E2746B1C300ABEC92 /* InsertTransactionDetailModel.swift */,
 			);
 			path = Request;
 			sourceTree = "<group>";
@@ -343,15 +344,6 @@
 				3993DD192746B18100ABEC92 /* UICollectionView+Ex.swift */,
 			);
 			path = UICollectionView;
-			sourceTree = "<group>";
-		};
-		3993DD1B2746B19100ABEC92 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-				3993DD1C2746B1B200ABEC92 /* InsertTransactionModel.swift */,
-				3993DD1E2746B1C300ABEC92 /* InsertTransactionDetailModel.swift */,
-			);
-			path = Model;
 			sourceTree = "<group>";
 		};
 		3993DD242746B34700ABEC92 /* ViewModel */ = {

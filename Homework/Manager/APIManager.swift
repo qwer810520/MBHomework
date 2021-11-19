@@ -10,30 +10,30 @@ import Alamofire
 import RxSwift
 
 class APIManager {
-
+  
   private static let host:String = "https://e-app-testing-z.herokuapp.com"
   private static let transaction:String = "/transaction"
-
+  
   static let sharedInstance:APIManager = .init()
-
+  
   func getTransactions() -> Single<[Transaction]> {
     return get().flatMap { (data) -> Single<[Transaction]> in
       return APIManager.handleDecode([Transaction].self, from: data)
     }
   }
-
+  
   func postNewTransactionsInfo<T: HTTPParametersType>(with info: T) -> Single<[Transaction]> {
     return post(with: info).flatMap { data -> Single<[Transaction]> in
       return APIManager.handleDecode([Transaction].self, from: data)
     }
   }
-
+  
   func deleteTransactions(with id: Int) -> Single<[Transaction]> {
     return delete(with: id).flatMap { data -> Single<[Transaction]> in
       return APIManager.handleDecode([Transaction].self, from: data)
     }
   }
-
+  
   public enum DecodeError: Error, LocalizedError {
     case dataNull
     public var errorDescription: String? {
@@ -43,7 +43,7 @@ class APIManager {
       }
     }
   }
-
+  
   private static func handleDecode<T>(_ type: T.Type, from data: Data?) -> Single<T> where T: Decodable {
     if let strongData = data {
       do {
@@ -56,7 +56,7 @@ class APIManager {
       return Single.error(DecodeError.dataNull)
     }
   }
-
+  
   private func get() -> Single<Data?> {
     return Single<Data?>.create { (singleEvent) -> Disposable in
       Alamofire.Session.default.request(APIManager.host + APIManager.transaction, method: .get).responseJSON { (response) in
@@ -73,7 +73,7 @@ class APIManager {
       return Disposables.create()
     }
   }
-
+  
   private func post<T: HTTPParametersType>(with info: T) -> Single<Data?> {
     return Single<Data?>.create { singleEvent -> Disposable in
       let url = APIManager.host + APIManager.transaction
@@ -91,7 +91,7 @@ class APIManager {
       return Disposables.create()
     }
   }
-
+  
   private func delete(with id: Int) -> Single<Data?> {
     return Single<Data?>.create { singleEvent -> Disposable in
       let url = "\(APIManager.host)\(APIManager.transaction)/\(id)"
@@ -105,7 +105,7 @@ class APIManager {
           case .failure(let error):
             singleEvent(.failure(error))
         }
-
+        
       }
       return Disposables.create()
     }

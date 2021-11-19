@@ -7,7 +7,7 @@
 
 import Foundation
 
-class FormatHelper {
+final class FormatHelper {
   static func translateDateToString(with time: Double) -> String {
     let date = Date(timeIntervalSince1970: time)
     let dateFormatter = DateFormatter()
