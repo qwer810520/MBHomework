@@ -31,6 +31,9 @@ class TransactionListViewController: UIViewController {
     tableView.dataSource = self
     tableView.reguster(with: [TransactionListDetailTableViewCell.self, TransactionListTotalCell.self])
     tableView.refreshControl = refreshControl
+    if #available(iOS 15, *) {
+      tableView.sectionHeaderTopPadding = 0
+    }
     return tableView
   }()
 
@@ -143,6 +146,14 @@ extension TransactionListViewController: UITableViewDelegate {
     guard section > 0, let model = viewObject?.sections[section - 1] else { return nil }
     let view = TransactionListSectionView(frame: .init(origin: .zero, size: .init(width: tableView.frame.width, height: 44)), transactionListItemViewObject: model, delegate: self)
     return view
+  }
+
+  func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+    return nil
+  }
+
+  func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+    return 0
   }
 }
 
