@@ -18,18 +18,29 @@ class TransactionListViewModel {
 
   var localViewObject = BehaviorRelay(value: TransactionListViewObject(dataList: []))
 
-  func getTransactionListViewObjects() -> Single<TransactionListViewObject> {
+  // MARK: - Private Methods
+
+  private func getTransactionListViewObjects() -> Single<TransactionListViewObject> {
     return apiManager.getTransactions().map { (transactions) -> TransactionListViewObject in
 //      #warning("DOTO: make TransactionListViewObject then sort sections by time")
       return TransationViewObjectMapper.viewObject(with: transactions)
     }.observe(on: MainScheduler.instance)
   }
 
-  func deleteTransactionInfo(with id: Int) -> Single<TransactionListViewObject> {
+  private func deleteTransactionInfo(with id: Int) -> Single<TransactionListViewObject> {
     return apiManager.deleteTransactions(with: id)
       .map { return TransationViewObjectMapper.viewObject(with: $0) }
       .observe(on: MainScheduler.instance)
   }
+
+  private func fetchLocalTransactionListViewObject() -> Single<TransactionListViewObject> {
+    return dbManager.fetchTransactions()
+      .map { (transactions) -> TransactionListViewObject in
+        return TransationViewObjectMapper.viewObject(with: transactions)
+      }
+      .observe(on: MainScheduler.instance)
+  }
+
 }
 
 // MARK: - ViewModelType
@@ -49,7 +60,9 @@ extension TransactionListViewModel: ViewModelType {
     let isLoading = BehaviorRelay<Bool>(value: false)
 
     input.fetchContentTrigger.flatMapLatest {  _ -> Observable<TransactionListViewObject> in
-      return self.getTransactionListViewObjects()
+//      return self.getTransactionListViewObjects()
+//        .asObservable()
+      return self.fetchLocalTransactionListViewObject()
         .asObservable()
     }
     .subscribe(onNext: { result in

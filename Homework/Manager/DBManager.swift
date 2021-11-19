@@ -17,6 +17,10 @@ class DBManager {
 
   private var database: FMDatabase?
 
+  enum FetchError: LocalizedError {
+    case noFindDataBase
+  }
+
   private var databasePath: String {
     let defaultPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]
     return defaultPath.stringByAppendingPathComponent(path: "HWDatabase.sqlite")
@@ -81,6 +85,85 @@ class DBManager {
       try database?.executeUpdate(spl, values: nil)
     } catch {
       print("Create table failure, error is \(error.localizedDescription) spl is \(spl)")
+    }
+  }
+}
+
+  // MARK: - Fetch Data
+
+extension DBManager {
+  func fetchTransactions() -> Single<[Transaction]> {
+    return Observable.zip(findAllTransactions().asObservable(), findAllTransactionsDetail().asObservable())
+      .map { (transactions, detailDic) -> [Transaction] in
+        return transactions.map { info -> Transaction in
+          let details = detailDic[info.id]?.compactMap({ $0.detail })
+          return Transaction(id: info.id, time: info.time, title: info.title, description: info.description, details: details)
+        }
+      }
+      .asSingle()
+  }
+
+  private func findAllTransactions() -> Single<[Transaction]> {
+    return Single<[Transaction]>.create { [weak self] singleEvent -> Disposable in
+      guard let queue = self?.queue() else {
+        singleEvent(.failure(FetchError.noFindDataBase))
+        return Disposables.create()
+      }
+      queue.inDatabase { database in
+        let sql = "SELECT * FROM T_TransactionInfo"
+        do {
+          let cursor = try database.executeQuery(sql, values: nil)
+          var results = [Transaction]()
+
+          while cursor.next() {
+            let info = Transaction(
+              id: Int(cursor.int(forColumn: "transactionID")),
+              time: Int(cursor.int(forColumn: "time")),
+              title: cursor.string(forColumn: "title") ?? "",
+              description: cursor.string(forColumn: "description") ?? "",
+              details: nil)
+            results.append(info)
+          }
+          cursor.close()
+
+          singleEvent(.success(results))
+        } catch {
+          singleEvent(.failure(error))
+        }
+      }
+      return Disposables.create()
+    }
+  }
+
+  private func findAllTransactionsDetail() -> Single<[Int: [LocalTransactionsDetailModel]]> {
+    return Single<[Int: [LocalTransactionsDetailModel]]>.create { [weak self] singleEvent -> Disposable in
+      guard let queue = self?.queue() else {
+        singleEvent(.failure(FetchError.noFindDataBase))
+        return Disposables.create()
+      }
+      queue.inDatabase { database in
+        let sql = "SELECT * FROM T_TransactionDetail"
+        do {
+          let cursor = try database.executeQuery(sql, values: nil)
+          var results = [LocalTransactionsDetailModel]()
+
+          while cursor.next() {
+            var detail = LocalTransactionsDetailModel()
+            detail.transactionID = Int(cursor
+                                        .int(forColumn: "transactionID"))
+            let detailInfo = TransactionDetail(name: cursor.string(forColumn: "name") ?? "", quantity: Int(cursor.int(forColumn: "quantity")), price: Int(cursor.int(forColumn: "price")))
+            detail.detail = detailInfo
+            results.append(detail)
+          }
+          cursor.close()
+
+          singleEvent(.success(Dictionary(grouping: results, by: { $0.transactionID })))
+        } catch {
+          print("fetch Detail list failure, error is \(error.localizedDescription)")
+          singleEvent(.failure(error))
+        }
+      }
+      return Disposables.create()
     }
   }
 }
