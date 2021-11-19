@@ -98,7 +98,7 @@ extension DBManager {
     return Observable.zip(findAllTransactions().asObservable(), findAllTransactionsDetail().asObservable())
       .map { (transactions, detailDic) -> [Transaction] in
         return transactions.map { info -> Transaction in
-          let details = detailDic[info.id]?.compactMap({ $0.detail })
+          let details = detailDic[info.id] ?? []
           return Transaction(id: info.id, time: info.time, title: info.title, description: info.description, details: details)
         }
       }
@@ -139,8 +139,8 @@ extension DBManager {
     }
   }
 
-  private func findAllTransactionsDetail() -> Single<[Int: [LocalTransactionsDetailModel]]> {
-    return Single<[Int: [LocalTransactionsDetailModel]]>.create { [weak self] singleEvent -> Disposable in
+  private func findAllTransactionsDetail() -> Single<[Int: [TransactionDetail]]> {
+    return Single<[Int: [TransactionDetail]]>.create { [weak self] singleEvent -> Disposable in
       guard let queue = self?.queue() else {
         singleEvent(.failure(FetchError.noFindDataBase))
         return Disposables.create()
@@ -152,19 +152,21 @@ extension DBManager {
         let sql = "SELECT * FROM T_TransactionDetail"
         do {
           let cursor = try database.executeQuery(sql, values: nil)
-          var results = [LocalTransactionsDetailModel]()
+          var results = [Int: [TransactionDetail]]()
 
           while cursor.next() {
-            var detail = LocalTransactionsDetailModel()
-            detail.transactionID = Int(cursor
-                                        .int(forColumn: "transactionID"))
+            let transactionID = Int(cursor.int(forColumn: "transactionID"))
             let detailInfo = TransactionDetail(name: cursor.string(forColumn: "name") ?? "", quantity: Int(cursor.int(forColumn: "quantity")), price: Int(cursor.int(forColumn: "price")))
-            detail.detail = detailInfo
-            results.append(detail)
+            if var transactions = results[transactionID] {
+              transactions.append(detailInfo)
+              results[transactionID] = transactions
+            } else {
+              results[transactionID] = [detailInfo]
+            }
           }
           cursor.close()
 
-          singleEvent(.success(Dictionary(grouping: results, by: { $0.transactionID })))
+          singleEvent(.success(results))
         } catch {
           print("fetch Detail list failure, error is \(error.localizedDescription)")
           singleEvent(.failure(error))
