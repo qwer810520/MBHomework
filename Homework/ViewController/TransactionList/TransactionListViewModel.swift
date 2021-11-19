@@ -41,6 +41,10 @@ class TransactionListViewModel {
       .observe(on: MainScheduler.instance)
   }
 
+  private func isNetworkConnect() -> Bool {
+    let reachability = Reachability(hostName: "www.apple.com")
+    return reachability?.currentReachabilityStatus().rawValue != 0
+  }
 }
 
 // MARK: - ViewModelType
@@ -60,10 +64,14 @@ extension TransactionListViewModel: ViewModelType {
     let isLoading = BehaviorRelay<Bool>(value: false)
 
     input.fetchContentTrigger.flatMapLatest {  _ -> Observable<TransactionListViewObject> in
-//      return self.getTransactionListViewObjects()
-//        .asObservable()
-      return self.fetchLocalTransactionListViewObject()
-        .asObservable()
+      switch self.isNetworkConnect() {
+        case true:
+          return self.getTransactionListViewObjects()
+            .asObservable()
+        case false:
+          return self.fetchLocalTransactionListViewObject()
+            .asObservable()
+      }
     }
     .subscribe(onNext: { result in
       self.localViewObject.accept(result)

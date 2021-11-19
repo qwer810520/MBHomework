@@ -9,7 +9,7 @@ import Foundation
 import FMDB
 import RxSwift
 
-#warning("DOTO: DBManager")
+//#warning("DOTO: DBManager")
 
 class DBManager {
 
@@ -48,6 +48,8 @@ class DBManager {
   func queue() -> FMDatabaseQueue? {
     return FMDatabaseQueue(path: databasePath)
   }
+
+  // MARK: - Private Methods
 
   @discardableResult
   private func openDataBase() -> Bool {
@@ -110,6 +112,8 @@ extension DBManager {
         return Disposables.create()
       }
       queue.inDatabase { database in
+        defer { database.close() }
+
         let sql = "SELECT * FROM T_TransactionInfo"
         do {
           let cursor = try database.executeQuery(sql, values: nil)
@@ -141,7 +145,10 @@ extension DBManager {
         singleEvent(.failure(FetchError.noFindDataBase))
         return Disposables.create()
       }
+
       queue.inDatabase { database in
+        defer { database.close() }
+
         let sql = "SELECT * FROM T_TransactionDetail"
         do {
           let cursor = try database.executeQuery(sql, values: nil)
@@ -191,7 +198,6 @@ extension DBManager {
         }
       }
     }
-    print(#function, "Finish")
   }
 }
 
@@ -208,9 +214,6 @@ extension DBManager {
 
       sql = "DELETE FROM T_TransactionDetail"
       guard database.executeUpdate(sql, withArgumentsIn: []) else { return }
-
-      print(#function, "Finish")
-
     }
   }
 }
